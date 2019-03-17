@@ -22,10 +22,15 @@ public class CreatExam extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		HttpSession session = request.getSession();
 		String loginName = (String) session.getAttribute(SystemConstants.USERTDENTITY);
-		studentService.createTest(loginName);
-		//试卷生成成功
-		//response.getWriter().write("Create Exam OK !");
-		response.sendRedirect(request.getContextPath()+"/exam.jsp");
+		if(loginName == null ){
+			//重定向
+			response.sendRedirect(request.getContextPath()+"/login.jsp");
+		}else {
+			studentService.createTest(loginName);
+			//试卷生成成功
+			//response.getWriter().write("Create Exam OK !");
+			response.sendRedirect(request.getContextPath() + "/exam.jsp");
+		}
 	}
 
 }

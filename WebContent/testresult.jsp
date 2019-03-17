@@ -45,7 +45,7 @@
 			</ul>
 			<ul class="nav navbar-nav navbar-right">
 				<li><a href="#">欢迎你，${sessionScope.USERTDENTITY}</a></li>
-				<li><a href="#">安全注销</a></li>
+				<li><a id="logout" href="#">安全注销</a></li>
 			</ul>
 		</div>
 		<!-- /.navbar-collapse --> </nav>
@@ -120,5 +120,12 @@
 	<script src="js/jquery.min.js"></script>
 	<!-- Include all compiled plugins (below), or include individual files as needed -->
 	<script src="js/bootstrap.min.js"></script>
+	<script >
+        $("#logout").click(function () {
+            if(confirm("确认注销当前用户？")){
+                window.location.href = "LoginOut.action";
+            }
+        });
+	</script>
 </body>
 </html>

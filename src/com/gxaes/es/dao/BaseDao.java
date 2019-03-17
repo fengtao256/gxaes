@@ -32,7 +32,8 @@ public class BaseDao {
 		if(conn == null || conn.isClosed()){
 			conn = DriverManager.getConnection(url,user,password);
 			threadLocal.set(conn);
-		}return conn;
+		}
+		return conn;
 	}
 	public void close(ResultSet rs,Statement stmt , Connection conn){
 		try {

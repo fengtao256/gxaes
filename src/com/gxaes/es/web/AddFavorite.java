@@ -29,7 +29,11 @@ public class AddFavorite extends HttpServlet {
 		request.setCharacterEncoding("UTF-8");
 		int queId = Integer.parseInt(request.getParameter("queId"));
 		//获取用户名
-		String loginName=(String)request.getSession().getAttribute(SystemConstants.USERTDENTITY); 
+		String loginName=(String)request.getSession().getAttribute(SystemConstants.USERTDENTITY);
+		if(loginName == null ){
+			//重定向
+			response.sendRedirect(request.getContextPath()+"/login.jsp");
+		}
 		//查到当前考试test
 		Student st = ss.findByLoginName(loginName);
 		ss.favoriteQuestion(st.getStuId(),queId);

@@ -38,27 +38,32 @@ public class LoadQuestionController extends HttpServlet {
 		if(request.getParameter("page") != null){
 			page = Integer.parseInt(request.getParameter("page"));}
 		//获取用户名
-		String loginName=(String)request.getSession().getAttribute(SystemConstants.USERTDENTITY); 
-		//查到当前考试test信息
-		Test test = ss.findTest(loginName);		
-		//查找当前十道题目，通过testId查找出题号
-		Integer testId = test.getTestId();
-		//根据题号查找出题目
-		Question question = ss.loadQuestion(testId,page,pageSize);
-		//查到testdetails信息，获取actualAnswer
-		TestDetails td = ss.findTestDetails(testId,question.getQueId());
-		//json数据
-		String json = "{\"topic\":\""+question.getTopic()+
-				"\",\"queId\":\""+question.getQueId()+
-				"\",\"optionA\":\""+question.getOptionA()+
-				"\",\"optionB\":\""+question.getOptionB()+
-				"\",\"optionC\":\""+question.getOptionC()+
-				"\",\"optionD\":\""+question.getOptionD()+
-				"\",\"testId\":\""+testId+
-				"\",\"actualAnswer\":\""+td.getActualAnswer()+
-				"\"}";
-		//发送json数据
-		response.getWriter().write(json);
+			String loginName = (String) request.getSession().getAttribute(SystemConstants.USERTDENTITY);
+		if(loginName == null ){
+			//重定向
+			response.sendRedirect(request.getContextPath()+"/login.jsp");
+		}else {
+			//查到当前考试test信息
+			Test test = ss.findTest(loginName);
+			//查找当前十道题目，通过testId查找出题号
+			Integer testId = test.getTestId();
+			//根据题号查找出题目
+			Question question = ss.loadQuestion(testId, page, pageSize);
+			//查到testdetails信息，获取actualAnswer
+			TestDetails td = ss.findTestDetails(testId, question.getQueId());
+			//json数据
+			String json = "{\"topic\":\"" + question.getTopic() +
+					"\",\"queId\":\"" + question.getQueId() +
+					"\",\"optionA\":\"" + question.getOptionA() +
+					"\",\"optionB\":\"" + question.getOptionB() +
+					"\",\"optionC\":\"" + question.getOptionC() +
+					"\",\"optionD\":\"" + question.getOptionD() +
+					"\",\"testId\":\"" + testId +
+					"\",\"actualAnswer\":\"" + td.getActualAnswer() +
+					"\"}";
+			//发送json数据
+			response.getWriter().write(json);
+		}
 
 	}
 

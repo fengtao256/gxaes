@@ -25,19 +25,24 @@ public class LoadMyFavorite extends HttpServlet {
 		request.setCharacterEncoding("UTF-8");
 		//获取用户名
 		String loginName = (String) request.getSession().getAttribute(SystemConstants.USERTDENTITY);
-		Integer pageNo=1;
-		Integer pageSize = 10 ;
-		//获取分页参数
-		if(request.getParameter("pageNo") != null ){
-			pageNo = Integer.parseInt(request.getParameter("pageNo"));
-		}
-		//获取用户信息
-		Student st = ss.findByLoginName(loginName);
-		//获取用户收藏的错题
-		QuestionPage myfavorite = ss.getFavorite(st.getStuId(),pageNo,pageSize);
-		//发送给浏览器
-		request.setAttribute("myfavorite", myfavorite);
-		//转到我的收藏
-		request.getRequestDispatcher("/my_favorite.jsp").forward(request, response);
+        if(loginName == null ){
+            //重定向
+            response.sendRedirect(request.getContextPath()+"/login.jsp");
+        }else {
+            Integer pageNo = 1;
+            Integer pageSize = 10;
+            //获取分页参数
+            if (request.getParameter("pageNo") != null) {
+                pageNo = Integer.parseInt(request.getParameter("pageNo"));
+            }
+            //获取用户信息
+            Student st = ss.findByLoginName(loginName);
+            //获取用户收藏的错题
+            QuestionPage myfavorite = ss.getFavorite(st.getStuId(), pageNo, pageSize);
+            //发送给浏览器
+            request.setAttribute("myfavorite", myfavorite);
+            //转到我的收藏
+            request.getRequestDispatcher("/my_favorite.jsp").forward(request, response);
+        }
 	}
 }

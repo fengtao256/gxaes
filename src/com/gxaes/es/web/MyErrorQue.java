@@ -23,20 +23,25 @@ public class MyErrorQue extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		//根据当前loginName获取学生stuId
 		String loginName = (String) request.getSession().getAttribute(SystemConstants.USERTDENTITY);
-		Integer pageNo=1;
-		Integer pageSize = 10 ;
-		//获取分页参数
-		if(request.getParameter("pageNo") != null ){
-			pageNo = Integer.parseInt(request.getParameter("pageNo"));
+		if(loginName == null ){
+			//重定向
+			response.sendRedirect(request.getContextPath()+"/login.jsp");
+		}else {
+			Integer pageNo = 1;
+			Integer pageSize = 10;
+			//获取分页参数
+			if (request.getParameter("pageNo") != null) {
+				pageNo = Integer.parseInt(request.getParameter("pageNo"));
+			}
+			Student st = ss.findByLoginName(loginName);
+			//根据stuId查询错误题目信息，调用studentservice层-》在questionDao层用表连接查询
+			QuestionPage errorquestion = ss.getErrorQuestion(st.getStuId(), pageNo, pageSize);
+
+			//返回给jsp
+			request.setAttribute("errorquestion", errorquestion);
+			//jsp跳转
+			request.getRequestDispatcher("/my_errors.jsp").forward(request, response);
 		}
-		Student st = ss.findByLoginName(loginName);
-		//根据stuId查询错误题目信息，调用studentservice层-》在questionDao层用表连接查询
-		QuestionPage errorquestion = ss.getErrorQuestion(st.getStuId(),pageNo,pageSize);
-		
-		//返回给jsp
-		request.setAttribute("errorquestion",errorquestion);
-		//jsp跳转
-		request.getRequestDispatcher("/my_errors.jsp").forward(request, response);
 	}
 
 
