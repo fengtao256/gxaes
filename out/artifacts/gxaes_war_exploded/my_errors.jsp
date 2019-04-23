@@ -32,7 +32,7 @@
 #answerCard>div>a {
 	display: block;
 	width: 80%;
-	margin: :1px;
+	margin: 1px;
 }
 </style>
 </head>
@@ -66,7 +66,7 @@
 			</ul>
 			<ul class="nav navbar-nav navbar-right">
 				<li><a href="#">欢迎你，${sessionScope.USERIDENTITY}</a></li>
-				<li><a href="#">安全注销</a></li>
+				<li><a id="logout" href="#">安全注销</a></li>
 			</ul>
 		</div>
 		</nav>
@@ -162,6 +162,11 @@
 				}
 			});
 		});
+        $("#logout").click(function () {
+            if(confirm("确认注销当前用户？")){
+                window.location.href = "LoginOut.action";
+            }
+        });
     </script>
 </body>
 </html>

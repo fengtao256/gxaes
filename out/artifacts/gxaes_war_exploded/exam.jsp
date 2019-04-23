@@ -53,7 +53,6 @@
 }
 </style>
 </head>
-
 <body>
 	<div class="container">
 		<nav class="navbar navbar-default" role="navigation"> <!-- Brand and toggle get grouped for better mobile display -->
@@ -81,7 +80,7 @@
 			</ul>
 			<ul class="nav navbar-nav navbar-right">
 				<li><a href="#">欢迎你，${sessionScope.USERIDENTITY}</a></li>
-				<li><a href="#">安全注销</a></li>
+				<li><a id="logout" href="#">安全注销</a></li>
 			</ul>
 		</div>
 		<!-- /.navbar-collapse --> </nav>
@@ -241,47 +240,6 @@
 				window.location = "PostTestController.action?testId=" + testId;
 			}
 		}
-		
-		function press_1() {
-			page = 1;
-			loadQuestion();
-		}
-		function press_2() {
-			page = 2;
-			loadQuestion();
-		}
-		function press_3() {
-			page = 3;
-			loadQuestion();
-		}
-		function press_4() {
-			page = 4;
-			loadQuestion();
-		}
-		function press_5() {
-			page = 5;
-			loadQuestion();
-		}
-		function press_6() {
-			page =6;
-			loadQuestion();
-		}
-		function press_7() {
-			page = 7;
-			loadQuestion();
-		}
-		function press_8() {
-			page = 8;
-			loadQuestion();
-		}
-		function press_9() {
-			page = 9;
-			loadQuestion();
-		}
-		function press_10() {
-			page = 10;
-			loadQuestion();
-		}
 		// 处理div.option的点击事件
 		$("div.option").click(function(){
 			// 获取选择的答案且让对应的radio处于选中状态
@@ -301,7 +259,13 @@
 				}
 			});
 		});
-		
+
+		$("#logout").click(function () {
+			if(confirm("确认注销当前用户？")){
+                window.location.href = "LoginOut.action";
+			}
+        });
 	</script>
+	</div>
 </body>
 </html>
