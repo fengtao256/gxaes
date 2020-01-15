@@ -14,7 +14,7 @@ public class TestDetailsDaoImpl extends BaseDao implements TestDetailsDao {
 	@Override
 	public void save(TestDetails testDetails) {
 		// TODO Auto-generated method stub
-		String sql = "INSERT INTO `gxaes`.`testdetails` (`testId`, `queId`, `actualAnswer`, `correct`)"
+		String sql = "INSERT INTO `testdetails` (`testId`, `queId`, `actualAnswer`, `correct`)"
 				+ " VALUES (?, ?, ?, ?);";
 			/*Connection conn = null ;
 			PreparedStatement stmt = null ;

@@ -2,7 +2,9 @@ package com.gxaes.es.dao;
 
 import java.math.BigInteger;
 import java.util.Date;
+import java.util.UUID;
 
+import com.gxaes.es.common.CommonsUtils;
 import org.apache.commons.dbutils.handlers.BeanHandler;
 import org.apache.commons.dbutils.handlers.ScalarHandler;
 
@@ -12,10 +14,11 @@ public class TestDaoImpl extends BaseDao implements TestDao {
 
 	@Override
 	public void save(Test test) {
-		String sql = "INSERT INTO `gxaes`.`test` (`stuId`, `beginTime`, `endTime`, `accuracy`, `queCount`, `correctCount`) "
-				+ "VALUES (?, ?, ?, ?, ?, ?);";
+		String testId = CommonsUtils.getCard();
+		String sql = "INSERT INTO `test` (`stuId`, `testId`,`beginTime`, `endTime`, `accuracy`, `queCount`, `correctCount`) VALUES (?, ? , ?, ?, ?, ?, ?);";
 		Object[] parameters1 = new Object[]{
 			test.getStuId(),
+			testId,
 			test.getBeginTime(),
 			test.getEndTime(),
 			test.getAccuracy(),
@@ -23,12 +26,9 @@ public class TestDaoImpl extends BaseDao implements TestDao {
 			test.getCorrectCount()
 		};
 		this.executeUpdate(sql, parameters1);
-		//@@identity
-		sql = "select @@identity;";
-		ScalarHandler<BigInteger> sh = new ScalarHandler<BigInteger>();
-		BigInteger testId = this.executeQuery(sql, sh);
+		System.out.println(this.toString());
 		//System.out.println(testId);
-		test.setTestId(testId.intValue());
+		test.setTestId(Integer.parseInt(testId));
 	}
 	//返回当前考试test
 	@Override

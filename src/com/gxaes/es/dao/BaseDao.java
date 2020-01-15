@@ -10,9 +10,9 @@ import org.apache.commons.dbutils.*;
 
 public class BaseDao {
 	final static String driver_class = "com.mysql.jdbc.Driver";
-	final static String url = "jdbc:mysql://localhost:3306/gxaes";
+	final static String url = "jdbc:mysql://172.18.150.49:3306/ks";
 	final static String user = "root";
-	final static String password = "root";
+	final static String password = "admin";
 	
 	public static ThreadLocal<Connection> threadLocal = new ThreadLocal<Connection>();
 	static {

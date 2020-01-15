@@ -26,6 +26,7 @@ public class LoadQuestionController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     private StudentService ss = new StudentServiceImpl();
+
 	/**
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
@@ -45,6 +46,7 @@ public class LoadQuestionController extends HttpServlet {
 		}else {
 			//查到当前考试test信息
 			Test test = ss.findTest(loginName);
+//			System.out.println("test"+test.getTestId());
 			//查找当前十道题目，通过testId查找出题号
 			Integer testId = test.getTestId();
 			//根据题号查找出题目

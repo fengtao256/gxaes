@@ -1,5 +1,6 @@
 package com.gxaes.es.service;
 
+import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 import java.util.Map;
@@ -68,9 +69,10 @@ public class StudentServiceImpl extends BaseDao implements StudentService {
 			Test test = new Test();
 			Student stu = studentDao.findByLoginName(loginName);
 			test.setStuId(stu.getStuId());
+			System.out.println("stu.getStuId()"+stu.getStuId());
 			test.setQueCount(SystemConstants.EXAM_QUESTION_COUNT);
 			test.setBeginTime(new java.util.Date());
-			test.setEndTime(null);
+			test.setEndTime(new java.util.Date());
 			test.setCorrectCount(0);
 			test.setAccuracy(0.0);
 			testDao.save(test);//顺便查出这次testId号
@@ -89,7 +91,8 @@ public class StudentServiceImpl extends BaseDao implements StudentService {
 			BaseDao.commit();
 		}catch(Exception e){
 			//BaseDao.getConnection().setAutoCommit(false);
-			BaseDao.rollback();	
+			BaseDao.rollback();
+            e.printStackTrace();
 			
 		}finally{
 			BaseDao.closeConnection();
