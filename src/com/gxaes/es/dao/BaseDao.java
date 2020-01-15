@@ -10,7 +10,7 @@ import org.apache.commons.dbutils.*;
 
 public class BaseDao {
 	final static String driver_class = "com.mysql.jdbc.Driver";
-	final static String url = "jdbc:mysql://172.18.150.49:3306/ks";
+	final static String url = "jdbc:mysql://172.18.150.49:3306/gxaes";
 	final static String user = "root";
 	final static String password = "admin";
 	
